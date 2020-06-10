@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 @Configuration
 // 开启指定类的配置，既是接受配置文件中的参数的类， 多个时我们可以这么写value={Properties1.class,Properteis2.class....}
 @EnableConfigurationProperties(SmsProperties.class)
-// 当这个类（CarService）在classPath下，并且容器 中没有相同的，就自动配置
+// 当这个类（WeimiSmsSender）在classPath下，并且容器 中没有相同的，就自动配置
 @ConditionalOnClass(WeimiSmsSender.class)
 public class SmsAutoConfiguration {
 
