@@ -1,0 +1,77 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+allprojects {
+    group = 'com.sodacar.starter'
+    version = '1.0.0'
+}
+
+sourceCompatibility = 1.8
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    jar.enabled = true
+
+    repositories {
+        def devUsername = System.env.sodaMavenDev ?: sodaMavenDev
+        def devPassword = System.env.sodaMavenDevPassword ?: sodaMavenDevPassword
+
+        maven {
+            url "https://nexus3.sodacar.com/repository/maven-snapshots"
+            credentials {
+                username devUsername
+                password devPassword
+            }
+        }
+        maven {
+            url "https://nexus3.sodacar.com/repository/maven-releases"
+            credentials {
+                username devUsername
+                password devPassword
+            }
+        }
+        mavenCentral()
+    }
+
+    ext {
+
+    }
+
+    dependencies {
+
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                def deployerUsername = System.env.sodaMavenDeployer ?: sodaMavenDeployer
+                def deployerPassword = System.env.sodaMavenDeployerPassword ?: sodaMavenDeployerPassword
+                def artifactType = project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'
+
+                repository(url: "https://nexus3.sodacar.com/repository/maven-${artifactType}/") {
+                    authentication(
+                            userName: deployerUsername,
+                            password: deployerPassword
+                    )
+                }
+            }
+        }
+    }
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+}

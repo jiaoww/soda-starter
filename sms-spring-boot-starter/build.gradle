@@ -1,0 +1,6 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    implementation 'org.projectlombok:lombok:1.16.14'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+}

@@ -1,0 +1,4 @@
+rootProject.name = 'soda-starter'
+include 'sms-spring-boot-starter'
+
+
