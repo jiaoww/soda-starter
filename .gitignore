@@ -6,4 +6,5 @@ target/
 .project
 .settings/
 .classpath
+.build/
 ace-modules/ace-tool/src/main/resources/application-dev.yml
