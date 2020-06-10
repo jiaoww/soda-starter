@@ -76,7 +76,7 @@ public class WeimiSmsSender implements ISmsSender {
                     HttpClientHelper.convertStreamToString(
                             HttpClientHelper.post(smsProperties.getUri(), params), "UTF-8")
                     , WeimiResponse.class).get();
-            log.info("weimi sms send:uri:{},response:{}", smsProperties.getUri(), weimiResponse);
+            log.info("weimi sms send:uri:{},response:{}", smsProperties.getUri(), JsonUtils.toJson(weimiResponse));
             return WeimiErrorEnum.valueOf(weimiResponse.getCode()).getMessage();
         } catch (Exception e) {
             String errorMsg = "send message error!params is " +
